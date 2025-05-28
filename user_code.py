@@ -36,10 +36,10 @@ def example():
 cb.register_on_press_callback(utils.ButtonCode.TRIANGLE, example)
 
 # Declare important variables
-left_motor: Motor = None
-right_motor: Motor = None
-arm_motor: Motor = None
-drivebase: DriveBase = None
+left_motor: Motor = None # type: ignore
+right_motor: Motor = None  # type: ignore
+arm_motor: Motor = None  # type: ignore
+drivebase: DriveBase = None  # type: ignore
 
 # This function will be run once when the program starts up
 def on_init() -> None:

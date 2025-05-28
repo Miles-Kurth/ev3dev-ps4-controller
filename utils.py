@@ -58,13 +58,13 @@ def print_ports() -> None:
     ev3.screen.print("Expected port configuration:")
     ev3.screen.print("Left motor:", get_port_string(uc.left_motor_port))
     ev3.screen.print("Right motor:", get_port_string(uc.right_motor_port))
-    ev3.screen.print("Arm motor:", get_port_string(uc.arm_motor_port))
+    if not uc.disable_arm_motor: ev3.screen.print("Arm motor:", get_port_string(uc.arm_motor_port))
 
 def init_motors() -> None:
     try:
         uc.left_motor = Motor(uc.left_motor_port)
         uc.right_motor = Motor(uc.right_motor_port)
-        uc.arm_motor = Motor(uc.arm_motor_port)
+        if not uc.disable_arm_motor: uc.arm_motor = Motor(uc.arm_motor_port)
     except:
         print_ports()
         sleep(15)
