@@ -7,6 +7,8 @@ from pybricks.ev3devices import Motor
 from pybricks.parameters import (Port, Stop)
 from pybricks.hubs import EV3Brick
 from pybricks.iodevices import I2CDevice
+from pybricks.media.ev3dev import SoundFile, ImageFile
+from _thread import start_new_thread, allocate_lock
 
 class LaserSensor:
     def __init__(self, port):
@@ -31,8 +33,9 @@ yeet_motor_port: Port = Port.D
 laser_sensor = LaserSensor(Port.S1)
 
 # Objects
-brick = EV3Brick()
-brick.speaker.beep(440,250)
+ev3 = EV3Brick()
+speaker_lock = allocate_lock()
+
 
 # If one of your motors is faster than the other, you can slow it down a bit here
 left_motor_sensitivity: float = 0.8
@@ -55,13 +58,6 @@ disable_arm_motor: bool = False
 use_tank_drive: bool = False
 controller_deadzone: float = 0.0
 
-# Example controller callback
-# This makes a function called example that prints 'Hello, world!'
-# and will be run every time the triangle button is pressed
-def example():
-    print("Hello, world!")
-    brick.speaker.beep(440,250)
-
 
 cb.register_on_press_callback(utils.ButtonCode.TRIANGLE, example)
 
@@ -71,6 +67,19 @@ right_motor: Motor = None  # type: ignore
 arm_motor: Motor = None  # type: ignore
 drivebase: DriveBase = None  # type: ignore
 yeetMotor: Motor = None
+
+# Other setup
+ev3.speaker.set_volume(100)
+
+# Example controller callback
+# This makes a function called example that prints 'Hello, world!'
+# and will be run every time the triangle button is pressed
+def example():
+    print("Hello, world!")
+    background_beep(440, 1000)
+    print("doing next thing right away")
+    #ev3.speaker.beep(440,250)
+
 
 # This function will be run once when the program starts up
 def on_init() -> None:
@@ -85,6 +94,7 @@ def on_init() -> None:
 
 # This function will be run when you press the auto button as defined above
 def auto() -> None:
+    background_play_file("MUSIC")
     while laser_sensor.distance() < 400:
         drivebase.drive(100,0)
     
@@ -99,4 +109,27 @@ def yeetForward() -> None:
     
 def yeetBack() -> None:
     yeetMotor.run_time(-2000, 2000, then=Stop.HOLD, wait=False)
-    
+
+
+def locked_beep(frequency, duration):
+    """Call ev3.speaker.beep with speaker_lock held."""    
+    with speaker_lock:
+        ev3.speaker.beep(frequency, duration)
+
+def background_beep(frequency, duration):
+    """Call ev3.speaker.beep in background thread."""
+    start_new_thread(locked_beep, (frequency, duration))
+
+def locked_play_file(filename):
+    """Call ev3.speaker.beep with speaker_lock held."""    
+    with speaker_lock:
+        ev3.speaker.play_file(filename)
+
+def background_play_file(filename):
+    """Call ev3.speaker.play_file in background thread."""
+    start_new_thread(locked_play_file, (filename,))
+
+
+
+
+
