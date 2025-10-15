@@ -161,6 +161,10 @@ def main() -> None:
                 break
             if ev_code == config.auto_button and ev_value == ButtonEvent.PRESSED:
                 config.auto()
+            if ev_code == config.yeet_forward_button and ev_value == ButtonEvent.PRESSED:
+                config.yeetForward()
+            if ev_code == config.yeet_back_button and ev_value == ButtonEvent.PRESSED:
+                config.yeetBack()
             for cb in cb_list:
                 cb.try_run(ev_type, ev_code, ev_value)
         
@@ -175,8 +179,8 @@ def main() -> None:
                 if ev_code == AxisCode.LEFT_TRIGGER:
                     arm_power = ev_value * config.arm_motor_sensitivity
                 if ev_code == AxisCode.RIGHT_TRIGGER:
-                    arm_power = -ev_value * config.arm_motor_sensitivity
-            config.arm_motor.dc(arm_power)
+                    arm_power = -ev_value * config.arm_motor_sensitivity * 0.8
+            config.arm_motor.dc(arm_power)                
 
         event = in_file.read(EVENT_SIZE)
 
