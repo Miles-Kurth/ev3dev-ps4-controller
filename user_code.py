@@ -59,7 +59,7 @@ use_tank_drive: bool = False
 controller_deadzone: float = 0.0
 
 
-cb.register_on_press_callback(utils.ButtonCode.TRIANGLE, example)
+
 
 # Declare important variables
 left_motor: Motor = None # type: ignore
@@ -69,16 +69,18 @@ drivebase: DriveBase = None  # type: ignore
 yeetMotor: Motor = None
 
 # Other setup
-ev3.speaker.set_volume(100)
+ev3.speaker.set_volume(1000)
 
 # Example controller callback
 # This makes a function called example that prints 'Hello, world!'
 # and will be run every time the triangle button is pressed
 def example():
     print("Hello, world!")
-    background_beep(440, 1000)
+    #background_play_file("/home/robot/BackupRobotTheme.wav")
     print("doing next thing right away")
     #ev3.speaker.beep(440,250)
+
+cb.register_on_press_callback(utils.ButtonCode.TRIANGLE, example)
 
 
 # This function will be run once when the program starts up
@@ -94,13 +96,18 @@ def on_init() -> None:
 
 # This function will be run when you press the auto button as defined above
 def auto() -> None:
-    background_play_file("MUSIC")
-    while laser_sensor.distance() < 400:
-        drivebase.drive(100,0)
-    
+    #background_play_file("/home/robot/RobotTheme3.wav")
+    arm_motor.run_time(1000, 500, then=Stop.HOLD, wait=True)
+    drivebase.drive(500,0)
+    time.sleep(1.5)
     drivebase.stop()
-    arm_motor.run_time(-500, 700, then=Stop.HOLD, wait=True)
-    drivebase.straight(-500)
+    drivebase.drive(200,0)
+    while laser_sensor.distance() > 170:
+        print(laser_sensor.distance())
+    drivebase.stop()
+    arm_motor.run_time(-500, 700, then=Stop.HOLD, wait=True)   
+    drivebase.drive(-700,0)
+    time.sleep(3)
     drivebase.stop()
     arm_motor.run_time(500, 700, then=Stop.HOLD, wait=True)
 

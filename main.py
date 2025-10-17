@@ -53,7 +53,7 @@ def scale(val: float, source: tuple[int, int], target: tuple[int, int]) -> float
 # Implementation from
 # https://xiaoxiae.github.io/Robotics-Simplified-Website/drivetrain-control/arcade-drive/
 def arcade_drive():
-    drive: float = Controller.left_y
+    drive: float = Controller.left_y *1.5
     rotate: float = -Controller.right_x
     # variables to determine the quadrants
     maximum = max(abs(drive), abs(rotate))
