@@ -1,6 +1,7 @@
 import controller_callbacks as cb
 import utils
 import time
+import random
 
 from pybricks.robotics import DriveBase
 from pybricks.ev3devices import Motor
@@ -68,16 +69,20 @@ arm_motor: Motor = None  # type: ignore
 drivebase: DriveBase = None  # type: ignore
 yeetMotor: Motor = None
 
+a: int = 1
+
 # Other setup
-ev3.speaker.set_volume(1000)
+ev3.speaker.set_volume(100)
 
 # Example controller callback
 # This makes a function called example that prints 'Hello, world!'
 # and will be run every time the triangle button is pressed
 def example():
-    print("Hello, world!")
+    #print("Hello, world!")
     #background_play_file("/home/robot/BackupRobotTheme.wav")
-    print("doing next thing right away")
+    ev3.speaker.set_volume(random.randint(70,100))
+    background_beep(random.randint(240,880),random.randint(100,500))
+    #print("doing next thing right away")
     #ev3.speaker.beep(440,250)
 
 cb.register_on_press_callback(utils.ButtonCode.TRIANGLE, example)
@@ -98,8 +103,8 @@ def on_init() -> None:
 def auto() -> None:
     #background_play_file("/home/robot/RobotTheme3.wav")
     arm_motor.run_time(1000, 500, then=Stop.HOLD, wait=True)
-    drivebase.drive(500,0)
-    time.sleep(1.5)
+    drivebase.drive(600,0)
+    time.sleep(1)
     drivebase.stop()
     drivebase.drive(200,0)
     while laser_sensor.distance() > 170:
