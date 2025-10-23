@@ -101,10 +101,10 @@ def on_init() -> None:
 def auto() -> None:
     #background_play_file("/home/robot/RobotTheme3.wav")
     arm_motor.run_time(1000, 500, then=Stop.HOLD, wait=True)
-    drivebase.drive(600,0)
+    drivebase.drive(800,0)
     time.sleep(1)
     drivebase.stop()
-    drivebase.drive(200,0)
+    drivebase.drive(100,0)
     while laser_sensor.distance() > 170:
         print(laser_sensor.distance())
     drivebase.stop()
