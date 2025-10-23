@@ -116,7 +116,7 @@ def auto() -> None:
 
 def yeetForward() -> None:
     yeetMotor.run_time(2000, 2000, then=Stop.HOLD, wait=False)
-    
+
 def yeetBack() -> None:
     yeetMotor.run_time(-2000, 2000, then=Stop.HOLD, wait=False)
 
