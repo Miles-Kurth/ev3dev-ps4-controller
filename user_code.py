@@ -78,12 +78,10 @@ ev3.speaker.set_volume(100)
 # This makes a function called example that prints 'Hello, world!'
 # and will be run every time the triangle button is pressed
 def example():
-    #print("Hello, world!")
-    #background_play_file("/home/robot/BackupRobotTheme.wav")
     ev3.speaker.set_volume(random.randint(70,100))
     background_beep(random.randint(240,880),random.randint(100,500))
-    #print("doing next thing right away")
-    #ev3.speaker.beep(440,250)
+    
+    
 
 cb.register_on_press_callback(utils.ButtonCode.TRIANGLE, example)
 
