@@ -104,7 +104,7 @@ def auto() -> None:
     drivebase.drive(700,0)
     time.sleep(1.5)
     drivebase.stop()
-    drivebase.drive(100,0)
+    drivebase.drive(200,0)
     while laser_sensor.distance() > 170:
         print(laser_sensor.distance())
     drivebase.stop()
