@@ -101,8 +101,8 @@ def on_init() -> None:
 def auto() -> None:
     #background_play_file("/home/robot/RobotTheme3.wav")
     arm_motor.run_time(1000, 500, then=Stop.HOLD, wait=True)
-    drivebase.drive(600,0)
-    time.sleep(1)
+    drivebase.drive(700,0)
+    time.sleep(1.5)
     drivebase.stop()
     drivebase.drive(200,0)
     while laser_sensor.distance() > 170:
@@ -112,6 +112,7 @@ def auto() -> None:
     drivebase.drive(-700,0)
     time.sleep(3)
     drivebase.stop()
+    time.sleep(1)
     arm_motor.run_time(500, 700, then=Stop.HOLD, wait=True)
 
 def yeetForward() -> None:
