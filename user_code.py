@@ -105,14 +105,16 @@ def auto() -> None:
     time.sleep(1.5)
     drivebase.stop()
     drivebase.drive(200,0)
-    while laser_sensor.distance() > 170:
+    while laser_sensor.distance() > 200:
         print(laser_sensor.distance())
     drivebase.stop()
     arm_motor.run_time(-500, 700, then=Stop.HOLD, wait=True)   
     drivebase.drive(-700,0)
     time.sleep(3)
+    drivebase.drive(-100,0)
+    time.sleep(5)
     drivebase.stop()
-    time.sleep(1)
+    time.sleep(3)
     arm_motor.run_time(500, 700, then=Stop.HOLD, wait=True)
 
 def yeetForward() -> None:
