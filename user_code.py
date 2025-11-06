@@ -30,7 +30,7 @@ class LaserSensor:
 left_motor_port: Port = Port.B
 right_motor_port: Port = Port.C
 arm_motor_port: Port = Port.A
-yeet_motor_port: Port = Port.D
+#yeet_motor_port: Port = Port.D
 laser_sensor = LaserSensor(Port.S1)
 
 # Objects
@@ -49,8 +49,8 @@ auto_button: int = utils.ButtonCode.CIRCLE
 stop_button: int = utils.ButtonCode.SQUARE
 armUp: int = utils.ButtonCode.TRIANGLE
 disable_stop_button: bool = False
-yeet_forward_button: int = utils.ButtonCode.LEFT_BUMPER
-yeet_back_button: int = utils.ButtonCode.RIGHT_BUMPER
+#yeet_forward_button: int = utils.ButtonCode.LEFT_BUMPER
+#yeet_back_button: int = utils.ButtonCode.RIGHT_BUMPER
 
 
 # Misc options
@@ -67,7 +67,7 @@ left_motor: Motor = None # type: ignore
 right_motor: Motor = None  # type: ignore
 arm_motor: Motor = None  # type: ignore
 drivebase: DriveBase = None  # type: ignore
-yeetMotor: Motor = None
+#yeetMotor: Motor = None
 
 a: int = 1
 
@@ -96,6 +96,10 @@ def on_init() -> None:
         right_motor,
         wheel_diameter=55,
         axle_track=121) # distance betweed wheels, make sure it is accurate
+    
+    ev3.speaker.set_volume(70)
+    background_beep(440, 100)
+    ev3.speaker.set_volume(100)
 
 # This function will be run when you press the auto button as defined above
 def auto() -> None:
@@ -117,11 +121,11 @@ def auto() -> None:
     time.sleep(3)
     arm_motor.run_time(500, 700, then=Stop.HOLD, wait=True)
 
-def yeetForward() -> None:
-    yeetMotor.run_time(2000, 2000, then=Stop.HOLD, wait=False)
+#def yeetForward() -> None:
+    #yeetMotor.run_time(2000, 2000, then=Stop.HOLD, wait=False)
 
-def yeetBack() -> None:
-    yeetMotor.run_time(-2000, 2000, then=Stop.HOLD, wait=False)
+#def yeetBack() -> None:
+    #yeetMotor.run_time(-2000, 2000, then=Stop.HOLD, wait=False)
 
 
 def locked_beep(frequency, duration):

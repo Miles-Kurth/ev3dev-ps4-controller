@@ -65,7 +65,7 @@ def init_motors() -> None:
     try:
         uc.left_motor = Motor(uc.left_motor_port)
         uc.right_motor = Motor(uc.right_motor_port)
-        uc.yeetMotor = Motor(uc.yeet_motor_port)
+        #uc.yeetMotor = Motor(uc.yeet_motor_port)
         if not uc.disable_arm_motor: uc.arm_motor = Motor(uc.arm_motor_port)
     except:
         print_ports()
